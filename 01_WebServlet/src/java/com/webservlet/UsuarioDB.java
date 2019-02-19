@@ -36,10 +36,8 @@ public class UsuarioDB {
         return false;
     }
     
-    public UsuarioDB getInstancia(){
-        if(instancia == null){
-            instancia = new UsuarioDB();
-        }
+    public static UsuarioDB getInstancia(){
+        if (instancia == null) instancia = new UsuarioDB();
         return instancia;
     }
 }

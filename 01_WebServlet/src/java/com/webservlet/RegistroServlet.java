@@ -17,32 +17,63 @@ import javax.servlet.http.HttpServletResponse;
  * @author USUARIO
  */
 public class RegistroServlet extends HttpServlet {
-        
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String nom = Utilidades.comprobarParam(request, out, "nom");
+            String strEdad = Utilidades.comprobarParam(request, out, "eda");
+            int edad = 0;
+            if (!strEdad.equals(""))
+                edad = Integer.parseInt(strEdad);
+            String email = Utilidades.comprobarParam(request, out, "email");
+            String psswd = Utilidades.comprobarParam(request, out, "psswd");
+            if (nom != "" && strEdad != "" && email != "" && psswd != "") {
+                if (edad < 18)
+                    out.println("<h2>Eh que eres menor!</p>");
+                else {
+                    UsuarioDB.getInstancia().addUser(nom, edad, email, psswd);
+                    out.println("<h2>Usuario añadido</p>");
+                }
+            }
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Registro Servlet</title>");            
+            out.println("<title>Servlet Registro</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Registrate</h1>");
-            out.println("<form name='form2' method='post' action='http://localhost:8084/01WebServlet/registro'>");
-            out.println("<table border='1'>");
-            out.println("<tr><td>Nombre:</td><td><input type='text' name='nom' id='nom' size='25' required/></td></tr>");
-            out.println("<tr><td>Edad:</td><td><input type='number' name='ed' id='ed' size='25' required/></td></tr>");
-            out.println("<tr><td>email:</td><td><input type='email' name='em' id='em' size='25 required'/></td></tr>");
-            out.println("<tr><td>contraseña:</td><td><input type='password' name='pw' id='pw' size='25' required/></td></tr>");
-            out.println("</table>");
-            out.println("<input type='submit' value='Enviar'/>");
-            out.println("</form>");
+            out.println("<h1>Servlet Registro at " + request.getContextPath() + "</h1>");
+            
             out.println("</body>");
             out.println("</html>");
         }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -56,34 +87,7 @@ public class RegistroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            // Mayores de edad
-            int edad = Integer.parseInt(request.getParameter("ed"));
-            if(edad >= 18){
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Registro página muy pornosa</title>");            
-                out.println("</head>");
-                out.println("<body bgcolor='green'>");
-                out.println("<h1>Registro correcto</h1>");
-                out.println("<a href='login'>Login</a>");
-                out.println("</html>");
-                
-                
-            }else{            
-                // Menores de edad
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Registro página muy pornosa</title>");            
-                out.println("</head>");
-                out.println("<body bgcolor='red'>");
-                out.println("<h1>" + request.getParameter("nom") + ", tienes " + request.getParameter("ed") + " años y no puedes registrarte</h1>");
-                out.println("</html>");
-            }
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -95,5 +99,4 @@ public class RegistroServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
