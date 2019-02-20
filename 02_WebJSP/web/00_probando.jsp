@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Probando JSP</h1>
+        <%@include file="cabecera.jsp" %>
+        <%= dameTitulo("Probando JSP") %>                
         
         <%
             double num = Math.random();
