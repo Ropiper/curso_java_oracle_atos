@@ -13,8 +13,13 @@
     </head>
     <body>
         <h1>Tablas de multiplicar</h1>
+        <%!
+        // Declaraciones
+        int i;
+        int m;
+        %>
         <%
-            for(int m = 0; m <= 10; m++){
+            for(/*int*/ m = 0; m <= 10; m++){
         %>
         
         <table>
@@ -22,9 +27,9 @@
                 <th>Tabla del <%= m %></th>
             </tr>
         
-        <%-- Muestra una tabla de multiplicar del 7 --%>
+        <%-- Muestra una tabla de multiplicar --%>
         <%
-            for(int i = 0; i <= 10; i++){
+            for(/*int*/ i = 0; i <= 10; i++){
         %>
             <tr>                
                 <td><%= m %> por </td>
