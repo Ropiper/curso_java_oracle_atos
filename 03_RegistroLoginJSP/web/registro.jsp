@@ -13,25 +13,12 @@
     </head>
     <body>
         <h1>Registro</h1>
-        <form action="registro.jsp" method="get">
+        <form action="procesar.do" method="get">
             <p>Nombre: </p><input type="text" id="nombre" name="nombre"/>
             <p>Edad: </p><input type="number" id="edad" name="edad"/>
             <p>Email: </p><input type="email" id="email" name="email"/>
             <p>Contraseña: </p><input type="password" id="pwd" name="pwd"/>
             <input type="submit" value="Registrarse"/>
-        </form>
-        
-        <%
-            String nombre = request.getParameter("nombre");
-            String email = request.getParameter("email");
-            String pwd = request.getParameter("pwd");
-            String edadString = request.getParameter("edad");
-            
-            if(nombre != "" && edadString != "" && email != "" && pwd != ""){
-                if(nombre.length() <= 1){
-                    out.println("<h2>Nombre demasiado corto</h2>");
-                }
-            }
-        %>
+        </form>  
     </body>
 </html>

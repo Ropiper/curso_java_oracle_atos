@@ -6,6 +6,7 @@
 package modelo.logica;
 
 import modelo.Persona;
+import modelo.persistencia.FicheroPersona;
 
 /**
  *
@@ -13,24 +14,30 @@ import modelo.Persona;
  */
 public class GestionPersona {
     
-    private Persona persona;
+    //private Persona persona;
     
     private static GestionPersona instancia;
+    private IPersonaDAO daoPersona = FicheroPersona.getInstancia();
     private GestionPersona(){}
-    GestionPersona getInstancia(){
+    
+    public static GestionPersona getInstancia(){
         if(instancia == null){
             instancia = new GestionPersona();
         }
         return instancia;
     }
-    public enum TipoResultado {OK, SIN_VALORES, EDAD_MAL};
+    public enum TipoResultado {OK, SIN_VALORES, EDAD_MAL, ERR_IO};
     
     public TipoResultado guardarPersona(String nombre, String edadString){
         if(validarDatosPersona(nombre, edadString)){
             if(validarEdad(edadString)){    
                 int edad = Integer.parseInt(edadString);
-                this.persona = new Persona(nombre, edad);
-                return TipoResultado.OK;
+                if(daoPersona.guardarPersona(new Persona(nombre, edad))){
+                    return TipoResultado.OK;
+                }else{
+                    return TipoResultado.ERR_IO;
+                }
+                
             }else{
                 return TipoResultado.EDAD_MAL;
             }
@@ -39,17 +46,17 @@ public class GestionPersona {
         }
     }
     
-    public boolean validarEdad(String edadString){
-        return edadString.matches("^[0-9]+$");
+    private boolean validarEdad(String edadString){
+        return edadString.matches("^[1-9][0-9]*$");
     }
     
-    public boolean validarDatosPersona(String nombre, String edadString){
-        return nombre.equals("")|| edadString.equals("");
+    private boolean validarDatosPersona(String nombre, String edadString){
+        return !nombre.isEmpty()&& !edadString.isEmpty();
         
     }
 
     public Persona getPersona() {
-        return persona;
+        return daoPersona.leerPersona();
     }
     
 }

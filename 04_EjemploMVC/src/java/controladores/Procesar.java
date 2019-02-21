@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Persona;
+import modelo.logica.GestionPersona;
 
 /**
  *
@@ -25,6 +26,26 @@ public class Procesar extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String edadString = request.getParameter("edad");
         
+        GestionPersona.TipoResultado resultado;
+        resultado = GestionPersona.getInstancia().guardarPersona(nombre, edadString);
+        switch(resultado){
+            case OK:
+                request.getSession().setAttribute("persona1", GestionPersona.getInstancia().getPersona());            
+                request.getRequestDispatcher("exito.jsp").forward(request, response);
+                break;
+            case SIN_VALORES:
+                request.getRequestDispatcher("errorcampos.jsp").forward(request, response);
+                break;
+            case EDAD_MAL:
+                request.getRequestDispatcher("errornumero.jsp").forward(request, response);
+                break;
+            case ERR_IO:
+                request.getRequestDispatcher("errorio.jsp").forward(request, response);
+                break;
+        }
+            
+            
+        /*    
         if(nombre.equals("")|| edadString.equals("")){
             request.getRequestDispatcher("errorcampos.jsp").forward(request, response);
         }else{
@@ -39,6 +60,7 @@ public class Procesar extends HttpServlet {
             
             request.getRequestDispatcher("exito.jsp").forward(request, response);
         }
+        */
     }
     
     @Override
