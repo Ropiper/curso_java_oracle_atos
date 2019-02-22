@@ -36,7 +36,7 @@ public class Procesar extends HttpServlet {
             String metodo = request.getMethod();
 
             switch (metodo) {
-                case "GET":
+                case "POST":
                     String nombre = request.getParameter("nombre");
                     String edad = request.getParameter("edad");
                     String email = request.getParameter("email");
@@ -60,9 +60,12 @@ public class Procesar extends HttpServlet {
                         case EMAIL_MAL:
                             request.getRequestDispatcher("errormail.jsp").forward(request, response);
                             break;
+                        case MENOR_EDAD:
+                            request.getRequestDispatcher("menoredad.jsp").forward(request, response);
+                            break;
                     }
                     break;
-                case "POST":
+                case "GET":
                     request.getRequestDispatcher("registro.jsp").forward(request, response);
                     break;
                 case "PUT":

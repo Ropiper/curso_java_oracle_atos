@@ -38,13 +38,18 @@ public class GestionPersona {
         if(ValidarPersona(nombre, edad, email, pwd)){
             if(validarEdad(edad)){
                 int iEdad = Integer.parseInt(edad);
-                if(validarEmail(email)){
-                    if(daoPersona.guardarPersona(new Persona(nombre, iEdad, email, pwd)))
-                        return TipoResultado.OK;
-                    else
-                        return TipoResultado.ERR_IO;
+                if(iEdad >= 18){
+                    if(validarEmail(email)){
+                        if(daoPersona.guardarPersona(new Persona(nombre, iEdad, email, pwd))){
+                            return TipoResultado.OK;
+                        }else{
+                            return TipoResultado.ERR_IO;
+                        }
+                    }else{
+                        return TipoResultado.EMAIL_MAL;
+                    }
                 }else{
-                    return TipoResultado.EMAIL_MAL;
+                    return TipoResultado.MENOR_EDAD;
                 }
             }else{
                 return TipoResultado.EDAD_MAL;
