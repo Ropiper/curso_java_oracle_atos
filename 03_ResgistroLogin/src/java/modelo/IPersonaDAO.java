@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.logica;
+package modelo;
 
 /**
  *
  * @author USUARIO
  */
-public class GestionPersona {
+public interface IPersonaDAO {
     
-    private static GestionPersona instancia;
+    boolean guardarPersona(Persona persona);
+    Persona leerPersona();
+    Persona editarPersona();
+    Persona borrarPersona();
 }
