@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.GestionPersona;
+import modelo.JavaDBPersona;
 
 /**
  *
@@ -66,7 +67,21 @@ public class Procesar extends HttpServlet {
                     }
                     break;
                 case "GET":
-                    request.getRequestDispatcher("registro.jsp").forward(request, response);
+                    String emailLogin = request.getParameter("email");
+                    String pwdLogin = request.getParameter("pwd");
+                    
+                    GestionPersona.ResultadoLogin resultadoLogin;
+                    resultadoLogin = GestionPersona.getInstancia().leerPersona(emailLogin, pwdLogin);
+                    
+                    switch(resultadoLogin){
+                        case OK:
+                            request.getRequestDispatcher("exito.jsp").forward(request, response);
+                            break;
+                        case MAL:
+                            request.getRequestDispatcher("loginmal.jsp").forward(request, response);
+                            break;
+                    }
+
                     break;
                 case "PUT":
                     request.getRequestDispatcher("update.jsp").forward(request, response);
@@ -77,21 +92,18 @@ public class Procesar extends HttpServlet {
             }
         }
     }
-    
-    
-     @Override
-     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-     throws ServletException, IOException {
-     processRequest(request, response);
-     }
 
-     @Override
-     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-     throws ServletException, IOException {
-     processRequest(request, response);
-     }
- 
-     
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
     @Override
     public String getServletInfo() {

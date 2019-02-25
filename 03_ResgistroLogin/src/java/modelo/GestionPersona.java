@@ -13,7 +13,7 @@ public class GestionPersona {
     
     private static GestionPersona instancia;
     private IPersonaDAO daoPersona = new JavaDBPersona();
-    private GestionPersona(){}
+    GestionPersona(){}
 
     public static GestionPersona getInstancia() {
         if(instancia == null) instancia = new GestionPersona();
@@ -56,6 +56,16 @@ public class GestionPersona {
             }
         }else{
             return TipoResultado.SIN_VALORES;
+        }
+    }
+    
+    public enum ResultadoLogin{OK, MAL};
+    
+    public ResultadoLogin leerPersona(String email, String pwd){
+        if(daoPersona.leerPersona(email, pwd)){
+            return ResultadoLogin.OK;
+        }else{
+            return ResultadoLogin.MAL;
         }
     }
 }

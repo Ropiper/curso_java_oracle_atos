@@ -12,7 +12,7 @@ package modelo;
 public interface IPersonaDAO {
     
     boolean guardarPersona(Persona persona);
-    Persona leerPersona();
+    boolean leerPersona(String email, String pwd);
     Persona editarPersona();
     Persona borrarPersona();
 }

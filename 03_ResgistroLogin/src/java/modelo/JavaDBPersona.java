@@ -28,7 +28,7 @@ public class JavaDBPersona implements IPersonaDAO{
         }
     }
 
-    @Override
+        @Override
     public boolean guardarPersona(Persona persona) {
         try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/UsuarioDB",
                 "user1", "user1")) {
@@ -51,10 +51,26 @@ public class JavaDBPersona implements IPersonaDAO{
     }
 
     @Override
-    public Persona leerPersona() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean leerPersona(String emailLogin, String pwdLogin) {
+        try(Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/UsuarioDB",
+                "user1", "user1")){
+            String squery = "SELECT nombre, edad, email, password FROM usuario WHERE email = '" + emailLogin + "' AND password = '" + pwdLogin + "';";
+            Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(squery);
+            if(res.next()){
+                String nombre = res.getString("nombre");
+                int edad = res.getInt("edad");
+                String email = res.getString("email");
+                String pwd = res.getString("password");
+                
+                return true;
+            }
+            return false;
+        }catch(SQLException e){
+            return false;
+        }
     }
-
+    
     @Override
     public Persona editarPersona() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
