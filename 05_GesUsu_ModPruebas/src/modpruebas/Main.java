@@ -54,7 +54,7 @@ public class Main {
         System.out.println("DATOS NO VÁLIDOS:");
         mostrarResultado(ServicioUsuarios.getInstancia().add("Paco Perez", "22", "", ""), "Usuario no válido");
         mostrarResultado(ServicioUsuarios.getInstancia().add("Paco Perez", "22", "xx@xx", ""), "Usuario no válido");
-        mostrarResultado(ServicioUsuarios.getInstancia().add("Paco Perez", "22", "aaa@aaa.com", ""), "Usuario no válido");
+        mostrarResultado(ServicioUsuarios.getInstancia().add("Paco Perez", "22", "aaaa@aaa.com", ""), "Usuario no válido");
         System.out.println("DATOS VÁLIDOS:");
         mostrarResultado(ServicioUsuarios.getInstancia().add("Paco Perez", "22", "aaaa@aaa.com", "aaa"), "Usuario válido");
         mostrarResultado(ServicioUsuarios.getInstancia().add("Pepe Perez", "23", "bbbb@aaa.com", "bbbb"), "Usuario válido");

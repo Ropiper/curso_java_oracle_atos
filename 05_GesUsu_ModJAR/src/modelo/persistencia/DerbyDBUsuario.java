@@ -126,7 +126,7 @@ public class DerbyDBUsuario implements IUsuarioDAO {
             String squery = "DELETE FROM usuario WHERE email = ?";            
             PreparedStatement stmt = con.prepareStatement(squery);
             stmt.setString(1, email);
-            stmt.executeUpdate(squery);
+            stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
             return false;
@@ -137,14 +137,14 @@ public class DerbyDBUsuario implements IUsuarioDAO {
     public boolean modificar(Usuario usuario) {
         try (Connection con = DriverManager.getConnection(
                 Constantes.CONEX_DERBY_DB, Constantes.USUARIO_DERBY_DB, Constantes.PASSWD_DERBY_DB)) {
-            String squery = "UPDATE usuario SET nombre = ?, edad = ?, email = ?, password = ?, WHERE email = ?";
+            String squery = "UPDATE usuario SET nombre = ?, edad = ?, email = ?, password = ? WHERE id = ?";
             PreparedStatement stmt = con.prepareStatement(squery);
             stmt.setString(1, usuario.getNombre());
             stmt.setInt(2, usuario.getEdad());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getPassword());
             stmt.setInt(5, usuario.getId());
-            stmt.executeUpdate(squery);
+            stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
             return false;
