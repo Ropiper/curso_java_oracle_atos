@@ -13,12 +13,12 @@
         <%@include file="header.jsp" %>
         <h1>Todos los usuarios sql</h1>
         <div border="2">
-        <sql:setDataSource var = "squery" driver = "com.mysql.jdbc.Driver"
-                           url = "jdbc:derby://localhost:1527/UsuarioDB"
-                           user = "user1"  password = "user1"/>
+        <sql:setDataSource var = "squery" driver = "oracle.jdbc.driver.OracleDriver"
+                           url = "jdbc:oracle:thin:@192.168.0.226:1521:XE"
+                           user = "system"  password = "oracle"/>
 
         <sql:query dataSource = "${squery}" var = "resultado">
-            SELECT * FROM usuario
+            SELECT * FROM c_usuario
         </sql:query>
             <c:forEach var = "fila" items = "${resultado.rows}">
                 <form action="usuarios.do" method="post" name="form_${fila.id}">                 
