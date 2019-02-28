@@ -21,7 +21,7 @@
                 <tr><td>Contraseña</td><td>
                     <input type="password" name="password" id="password" value=""/>  </td></tr> 
             </table>
-            <input type="submit" value="Registrar"/>
+            <input type="submit" value="Regisrar"/>
         </form>
     </body>
 </html>

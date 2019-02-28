@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Constantes;
-
 /**
  *
  * @author USUARIO
@@ -21,13 +20,11 @@ public class DerbyDBUsuario extends BaseDBUsuario {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
             this.conexionDB = Constantes.CONEX_DERBY_DB;
-            this.usuarioDB = Constantes.USUARIO_DERBY_DB;
+            this.usuarioDB =  Constantes.USUARIO_DERBY_DB;
             this.passwordDB = Constantes.PASSWD_DERBY_DB;
             this.tablaDB = "usuario";
         } catch (Exception ex) {
             Logger.getLogger(DerbyDBUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 }

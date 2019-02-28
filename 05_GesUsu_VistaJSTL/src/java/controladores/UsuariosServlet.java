@@ -61,10 +61,9 @@ public class UsuariosServlet extends HttpServlet {
             response.addCookie(cookie_password);
             switch (request.getMethod()) {
                 case "GET":
-                    // El bean que usaremos en listar.jsp
                     request.setAttribute("listaUsuarios", 
                             ServicioUsuarios.getInstancia().obtenerTodos());
-                    request.getRequestDispatcher("listarsql.jsp").forward(request, response);
+                    request.getRequestDispatcher("listar.jsp").forward(request, response);
                     
                     break;
                 case "POST":    // Simulación servicio web
@@ -74,13 +73,13 @@ public class UsuariosServlet extends HttpServlet {
                             ServicioUsuarios.getInstancia().modificar(id, nom, edad, email, password);
                             request.setAttribute("listaUsuarios", 
                                     ServicioUsuarios.getInstancia().obtenerTodos());
-                            request.getRequestDispatcher("listarsql.jsp").forward(request, response);
+                            request.getRequestDispatcher("listar.jsp").forward(request, response);
                             break;
                         case "DELETE":
                             ServicioUsuarios.getInstancia().eliminar(email);
                             request.setAttribute("listaUsuarios", 
                                     ServicioUsuarios.getInstancia().obtenerTodos());
-                            request.getRequestDispatcher("listarsql.jsp").forward(request, response);
+                            request.getRequestDispatcher("listar.jsp").forward(request, response);
                             break;
                     }
                     break;

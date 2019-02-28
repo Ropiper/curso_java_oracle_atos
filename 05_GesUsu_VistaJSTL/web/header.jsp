@@ -5,7 +5,6 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <h2>Aplicación Gestión MVC JSP</h2>
 <nav>
     <a href="index.jsp">Inicio</a>
@@ -16,6 +15,8 @@
             <jsp:getProperty property="email" name="usuario"/>
         </jsp:useBean>
         <a href="usuarios.do">Listar</a>
+        <a href="listarsql.jsp">Listar SQL</a>
+        <a href="listaroracle.jsp">Filtro Oracle</a>
         <a href="eliminar.jsp">Eliminar</a>
         <form action="usuarios.do" style="display: inline-block">
             <input id="email" name="email" type="hidden" value="LOGOUT"/>
@@ -28,7 +29,7 @@
     </c:if>
  </nav>
 <c:if test="${sessionScope.mensajeError != null}">
-    <h3 style="color: red"> ${ sessionScope.mensajeError } </h3>
+    <h3 style="color: orange"> ${ sessionScope.mensajeError } </h3>
     <c:remove var="mensajeError" scope="session"/>
 </c:if>
 <%--

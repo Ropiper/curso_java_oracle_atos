@@ -10,11 +10,11 @@ package util;
  * @author USUARIO
  */
 public class Constantes {
-    public static final String CONEX_DERBY_DB = "jdbc:derby://localhost:1527/UsuarioDB";
-    public static final String USUARIO_DERBY_DB = "user1";
-    public static final String PASSWD_DERBY_DB = "user1";
+    public static final String CONEX_DERBY_DB = "jdbc:derby://localhost:1527/UsuariosDB";
+    public static final String USUARIO_DERBY_DB = "usuario";
+    public static final String PASSWD_DERBY_DB = "usuario";
     
-    public static final String CONEX_ORACLE_DB = "jdbc:oracle:thin:@192.168.0.226:1521:XE";
+    public static final String CONEX_ORACLE_DB = "jdbc:oracle:thin:@localhost:1521:XE";
     public static final String USUARIO_ORACLE_DB = "system";
     public static final String PASSWD_ORACLE_DB = "oracle";
 }
