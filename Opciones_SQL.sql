@@ -25,10 +25,13 @@ select nota, ceil(nota), floor(nota), round(nota, 1) from usuario;
 update usuario set fecha_registro = add_months(fecha_registro, -1 + round(dbms_random.value(1,11)));
 update usuario set fecha_registro = fecha_registro - 27 + round(dbms_random.value(1,20));
 select nombre, fecha_registro from usuario where fecha_registro between '1/1/2019' and '1/4/2019';
-select nombre, fecha_registro, NEXT_DAY(fecha_registr, 'LUNES') from usuario;
+select nombre, fecha_registro, NEXT_DAY(fecha_registro, 'LUNES') from usuario;
 
 select to_date('05-SEP-2018 10:33 AM', 'DD-MM-YYYY HH:MI AM') from dual;
 select fecha_registro, to_char(fecha_registro) from usuario;
 
 select * from usuario where nota = (
     select min(nota) from usuario where nota>=5)
+	
+create view usuarios_programadores as select (u.nombre||' '||u.apellidos) as nombre_apell, edad, email, fecha_registro from usuario u 
+	join usu_dept ud on u.id = ud.id_usu join departamento d on ud.id_dept = d.id where d.nombre = 'Programación'
